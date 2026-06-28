@@ -488,6 +488,65 @@ app.get('/api/info', (req, res) => {
     });
 });
 
+// ========== BID 账号认证 ==========
+const ACCOUNTS_PATH = path.join(__dirname, '..', 'data', 'accounts.json');
+
+function loadAccounts() {
+    try {
+        if (fs.existsSync(ACCOUNTS_PATH)) {
+            return JSON.parse(fs.readFileSync(ACCOUNTS_PATH, 'utf-8'));
+        }
+    } catch (err) {
+        console.warn(`⚠️ 账号文件读取失败: ${err.message}`);
+    }
+    // 如果服务器目录下有 accounts.json，也尝试读取
+    if (config.serverDir) {
+        const serverAccounts = path.join(config.serverDir, 'accounts.json');
+        if (fs.existsSync(serverAccounts)) {
+            try {
+                return JSON.parse(fs.readFileSync(serverAccounts, 'utf-8'));
+            } catch (e) {}
+        }
+    }
+    return [];
+}
+
+// BID 登录
+app.post('/api/auth/login', (req, res) => {
+    const { bid, password } = req.body;
+    if (!bid || !password) {
+        return res.json({ success: false, message: '请输入 BID 和密码' });
+    }
+
+    const accounts = loadAccounts();
+    const user = accounts.find(a => a.bid === bid && a.password === password);
+
+    if (user) {
+        res.json({
+            success: true,
+            user: {
+                bid: user.bid,
+                displayName: user.displayName || user.bid,
+                role: user.role || 'user'
+            }
+        });
+    } else {
+        res.json({ success: false, message: 'BID 或密码错误' });
+    }
+});
+
+// 获取所有 BID 列表（仅返回用户名，不返回密码）
+app.get('/api/auth/accounts', (req, res) => {
+    const accounts = loadAccounts();
+    res.json({
+        accounts: accounts.map(a => ({
+            bid: a.bid,
+            displayName: a.displayName || a.bid,
+            role: a.role || 'user'
+        }))
+    });
+});
+
 // ========== 配置文件监视（实时更新） ==========
 let watcher = null;
 

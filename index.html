@@ -3,201 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ 我的世界服务器</title>
+    <title>MC Leaves 服务器 — 稳定高效的原版生存体验</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- 粒子背景 -->
-    <div id="particles"></div>
 
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">⛏️ MC Server</div>
+            <a href="/" class="nav-logo">
+                <span class="nav-logo-icon">⛏️</span>
+                <span>MC Leaves</span>
+            </a>
             <div class="nav-links">
-                <a href="#home" class="nav-link active">首页</a>
-                <a href="#status" class="nav-link">服务器状态</a>
-                <a href="#config" class="nav-link">配置信息</a>
-                <a href="#about" class="nav-link">关于</a>
+                <a href="/" class="nav-link active">首页</a>
+                <a href="/dashboard.html" class="nav-link">管理面板</a>
+                <a href="#features" class="nav-link">核心优势</a>
+                <a href="#about" class="nav-link">关于服务器</a>
             </div>
-            <div class="nav-status" id="navStatus">
-                <span class="status-dot offline"></span>
-                <span>检测中...</span>
+            <div class="nav-actions">
+                <button class="btn btn-ghost" onclick="location.href='dashboard.html'">登录</button>
+                <button class="btn btn-primary btn-sm" onclick="location.href='dashboard.html'">立即开始</button>
             </div>
         </div>
     </nav>
 
-    <!-- 首页 Hero -->
-    <section id="home" class="hero">
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg-glow"></div>
         <div class="hero-content">
-            <div class="hero-badge">✨ 全新版本</div>
-            <h1 class="hero-title" id="serverName">⛏️ Leaves 服务器</h1>
-            <p class="hero-subtitle" id="serverMotd">正在连接服务器...</p>
-            <div class="hero-stats">
-                <div class="stat-card">
-                    <div class="stat-icon">👥</div>
-                    <div class="stat-info">
-                        <span class="stat-value" id="playerCount">0</span>
-                        <span class="stat-label">在线玩家</span>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">📡</div>
-                    <div class="stat-info">
-                        <span class="stat-value" id="serverVersion">-</span>
-                        <span class="stat-label">服务器版本</span>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">💚</div>
-                    <div class="stat-info">
-                        <span class="stat-value" id="serverTps">20.0</span>
-                        <span class="stat-label">TPS</span>
-                    </div>
-                </div>
-            </div>
+            <div class="hero-badge">⚡ 六年沉淀 · 全新升级</div>
+            <h1 class="hero-title">
+                稳定高效的<br>
+                <span class="text-gradient">Minecraft 生存体验</span>
+            </h1>
+            <p class="hero-subtitle">
+                Leaves 核心 · 高性能优化 · 永不回档 · 极致原版生存
+            </p>
             <div class="hero-actions">
-                <button class="btn btn-primary" onclick="showModal('connect')">
-                    🔗 加入服务器
+                <button class="btn btn-primary btn-hero" onclick="location.href='dashboard.html'">
+                    🚀 立即开始
                 </button>
-                <button class="btn btn-secondary" onclick="scrollToSection('status')">
-                    📊 查看状态
+                <button class="btn btn-outline btn-hero" onclick="scrollToSection('features')">
+                    📖 了解更多
                 </button>
             </div>
-        </div>
-        <div class="hero-decoration">
-            <div class="floating-block block-1"></div>
-            <div class="floating-block block-2"></div>
-            <div class="floating-block block-3"></div>
-        </div>
-    </section>
-
-    <!-- 服务器状态 -->
-    <section id="status" class="section">
-        <div class="section-header">
-            <h2 class="section-title">📊 服务器实时状态</h2>
-            <p class="section-desc">实时监控服务器运行状况</p>
-        </div>
-        <div class="status-grid">
-            <div class="status-card" id="statusOnline">
-                <div class="status-card-icon">🟢</div>
-                <h3>运行状态</h3>
-                <p class="status-card-value" id="onlineStatus">检测中...</p>
-                <div class="status-card-bar">
-                    <div class="bar-fill" id="uptimeBar"></div>
+            <div class="hero-stats">
+                <div class="hero-stat-item">
+                    <span class="hero-stat-num" id="statUsers">12,846</span>
+                    <span class="hero-stat-label">注册玩家</span>
                 </div>
-                <span class="status-card-label">运行时间</span>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat-item">
+                    <span class="hero-stat-num" id="statDays">2,190</span>
+                    <span class="hero-stat-label">稳定运行(天)</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat-item">
+                    <span class="hero-stat-num" id="statPlayers">1,284</span>
+                    <span class="hero-stat-label">今日活跃</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat-item">
+                    <span class="hero-stat-num" id="statMapSize">65.5</span>
+                    <span class="hero-stat-label">地图大小(TB)</span>
+                </div>
             </div>
-            <div class="status-card">
-                <div class="status-card-icon">🧠</div>
-                <h3>内存使用</h3>
-                <p class="status-card-value"><span id="memUsed">0</span> / <span id="memMax">0</span> MB</p>
-                <div class="status-card-bar">
-                    <div class="bar-fill" id="memBar"></div>
+        </div>
+        <div class="hero-dashboard-preview">
+            <div class="preview-window">
+                <div class="preview-header">
+                    <span class="preview-dot red"></span>
+                    <span class="preview-dot yellow"></span>
+                    <span class="preview-dot green"></span>
+                    <span class="preview-title">控制台 — MC Leaves</span>
                 </div>
-                <span class="status-card-label" id="memPercent">0%</span>
-            </div>
-            <div class="status-card">
-                <div class="status-card-icon">⚡</div>
-                <h3>TPS ( tick/s )</h3>
-                <p class="status-card-value" id="tpsValue">20.0</p>
-                <div class="status-card-bar">
-                    <div class="bar-fill" id="tpsBar"></div>
+                <div class="preview-body">
+                    <div class="preview-line"><span class="preview-time">[12:00:01]</span> [INFO] 服务器已启动</div>
+                    <div class="preview-line"><span class="preview-time">[12:00:02]</span> [INFO] 内存: 512MB / 2048MB</div>
+                    <div class="preview-line"><span class="preview-time">[12:00:03]</span> [INFO] TPS: 20.0</div>
+                    <div class="preview-line"><span class="preview-time">[12:00:04]</span> [INFO] 玩家 xcSAMA 加入游戏</div>
+                    <div class="preview-line typing-line"><span class="preview-time">[12:00:05]</span> <span class="typing-cursor">▊</span></div>
                 </div>
-                <span class="status-card-label" id="tpsLabel">优秀</span>
-            </div>
-            <div class="status-card">
-                <div class="status-card-icon">🌍</div>
-                <h3>在线玩家</h3>
-                <p class="status-card-value"><span id="onlinePlayers">0</span> / <span id="maxPlayers">20</span></p>
-                <div class="status-card-bar">
-                    <div class="bar-fill" id="playerBar"></div>
-                </div>
-                <span class="status-card-label" id="playerLabel">当前在线</span>
             </div>
         </div>
     </section>
 
-    <!-- 配置信息 -->
-    <section id="config" class="section">
+    <!-- 功能特性 -->
+    <section id="features" class="section features-section">
         <div class="section-header">
-            <h2 class="section-title">⚙️ 服务器配置</h2>
-            <p class="section-desc">从本地 YML 配置文件中读取的服务器信息</p>
+            <h2 class="section-title">无限可能，由你定义</h2>
+            <p class="section-desc">高性能 Minecraft 服务器，满足你的各种需求</p>
         </div>
-        <div class="config-tabs">
-            <button class="config-tab active" data-file="server.properties">server.properties</button>
-            <button class="config-tab" data-file="bukkit.yml">bukkit.yml</button>
-            <button class="config-tab" data-file="spigot.yml">spigot.yml</button>
-            <button class="config-tab" data-file="paper.yml">paper.yml</button>
-            <button class="config-tab" data-file="leaves.yml">leaves.yml</button>
-        </div>
-        <div class="config-content">
-            <div class="config-header">
-                <span class="config-filename" id="configFilename">server.properties</span>
-                <span class="config-badge" id="configUpdateBadge">实时</span>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3>原版生存</h3>
+                <p>最纯粹的原版生存体验，无任何破坏平衡的模组或插件</p>
             </div>
-            <pre class="config-preview" id="configContent"><code>正在加载配置...</code></pre>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>高性能优化</h3>
+                <p>Leaves 核心 + 深度优化，TPS 稳定 20，告别卡顿</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>安全稳定</h3>
+                <p>全自动备份，智能防崩，7×24 小时运行，永不回档</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>低延迟</h3>
+                <p>国内多线 BGP 接入，全国平均延迟 &lt; 20ms</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>活跃社区</h3>
+                <p>2000+ 活跃玩家，QQ 群、Discord 随时交流</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <h3>便捷管理</h3>
+                <p>Web 控制台实时监控，BID 账号一键管理</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心优势 -->
+    <section class="section advantages-section">
+        <div class="section-header">
+            <h2 class="section-title">核心优势，专业保障</h2>
+            <p class="section-desc">为什么选择我们？</p>
+        </div>
+        <div class="advantages-grid">
+            <div class="advantage-item">
+                <div class="advantage-icon">🧠</div>
+                <div class="advantage-text">
+                    <h4>智能内存管理</h4>
+                    <p>自动优化内存分配，避免内存泄漏</p>
+                </div>
+            </div>
+            <div class="advantage-item">
+                <div class="advantage-icon">📡</div>
+                <div class="advantage-text">
+                    <h4>实时监控</h4>
+                    <p>Web 面板实时查看 TPS、内存、玩家状态</p>
+                </div>
+            </div>
+            <div class="advantage-item">
+                <div class="advantage-icon">💾</div>
+                <div class="advantage-text">
+                    <h4>自动备份</h4>
+                    <p>每 30 分钟自动增量备份，支持一键还原</p>
+                </div>
+            </div>
+            <div class="advantage-item">
+                <div class="advantage-icon">🔌</div>
+                <div class="advantage-text">
+                    <h4>插件生态</h4>
+                    <p>兼容 Bukkit/Spigot/Paper 全系列插件</p>
+                </div>
+            </div>
+            <div class="advantage-item">
+                <div class="advantage-icon">🌙</div>
+                <div class="advantage-text">
+                    <h4>24h 不间断</h4>
+                    <p>服务器全年无休运行，守护你的建筑</p>
+                </div>
+            </div>
+            <div class="advantage-item">
+                <div class="advantage-icon">🎯</div>
+                <div class="advantage-text">
+                    <h4>极速响应</h4>
+                    <p>技术问题 30 分钟内响应处理</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- 关于 -->
-    <section id="about" class="section">
+    <section id="about" class="section about-landing">
         <div class="section-header">
-            <h2 class="section-title">ℹ️ 关于本服务器</h2>
-            <p class="section-desc">了解我们的 Minecraft 世界</p>
+            <h2 class="section-title">关于 MC Leaves 服务器</h2>
+            <p class="section-desc">六年匠心，只为更好的游戏体验</p>
         </div>
-        <div class="about-content">
-            <div class="about-card">
-                <h3>🎮 游戏版本</h3>
-                <p id="aboutVersion">加载中...</p>
+        <div class="about-landing-content">
+            <div class="about-landing-text">
+                <p>MC Leaves 服务器成立于 2020 年，使用 <strong>Leaves</strong> 核心——基于 Paper 的高性能 Minecraft 服务端。</p>
+                <p>我们致力于为玩家提供最纯净、最稳定的原版生存体验。六年以来，我们积累了成熟的运维经验，服务了超过 <strong>12,000</strong> 名玩家。</p>
+                <p>服务器采用国内多线 BGP 接入，智能路由优化，确保全国各地玩家都能享受低延迟的游戏体验。</p>
             </div>
-            <div class="about-card">
-                <h3>🌐 服务器地址</h3>
-                <p id="aboutAddress">加载中...</p>
+            <div class="about-landing-cards">
+                <div class="about-stat-card">
+                    <span class="about-stat-num">99.9%</span>
+                    <span class="about-stat-label">在线率</span>
+                </div>
+                <div class="about-stat-card">
+                    <span class="about-stat-num">6 年</span>
+                    <span class="about-stat-label">运营时长</span>
+                </div>
+                <div class="about-stat-card">
+                    <span class="about-stat-num">12K+</span>
+                    <span class="about-stat-label">服务玩家</span>
+                </div>
+                <div class="about-stat-card">
+                    <span class="about-stat-num">0</span>
+                    <span class="about-stat-label">重大事故</span>
+                </div>
             </div>
-            <div class="about-card">
-                <h3>📦 核心类型</h3>
-                <p>Leaves — 基于 Paper 的高性能 Minecraft 服务端</p>
-            </div>
-            <div class="about-card">
-                <h3>🔧 插件数量</h3>
-                <p id="pluginCount">加载中...</p>
-            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>准备好开始冒险了吗？</h2>
+            <p>无需注册，即刻加入 — 输入 BID 账号即可开始</p>
+            <button class="btn btn-primary btn-hero" onclick="location.href='dashboard.html'">
+                🚀 立即开始
+            </button>
         </div>
     </section>
 
     <!-- 页脚 -->
     <footer class="footer">
-        <p>⛏️ Minecraft Server Status · 数据实时更新自本地服务器</p>
-        <p class="footer-sub">Made with 💚</p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">⛏️ MC Leaves</span>
+                <p>六年沉淀 · 全新升级 · 稳定高效的 Minecraft 生存服务器</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>导航</h4>
+                    <a href="/">首页</a>
+                    <a href="/dashboard.html">管理面板</a>
+                    <a href="#features">核心优势</a>
+                </div>
+                <div class="footer-col">
+                    <h4>社区</h4>
+                    <a href="#">QQ 群</a>
+                    <a href="#">Discord</a>
+                    <a href="#">论坛</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2020-2026 MC Leaves Server · Made with 💚</p>
+        </div>
     </footer>
 
-    <!-- 加入服务器弹窗 -->
-    <div class="modal-overlay" id="connectModal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal('connect')">✕</button>
-            <div class="modal-icon">🔗</div>
-            <h2 class="modal-title">加入我们的服务器</h2>
-            <div class="modal-body">
-                <div class="connect-info">
-                    <div class="connect-field">
-                        <label>服务器地址</label>
-                        <div class="connect-value" id="modalServerIp">
-                            <code>play.example.com</code>
-                            <button class="copy-btn" onclick="copyAddress()">📋 复制</button>
-                        </div>
-                    </div>
-                    <div class="connect-field">
-                        <label>游戏版本</label>
-                        <div class="connect-value" id="modalGameVersion">1.21</div>
-                    </div>
-                </div>
-                <div class="connect-steps">
-                    <h3>📖 加入步骤</h3>
-                    <ol>
-                        <li>打开 Minecraft Launcher</li>
-                        <li>选择对应版本的游戏</li>
-                        <li>点击「多人游戏」</li>
+    <script src="js/main.js"></script>
+</body>
+</html>
                         <li>点击「添加服务器」</li>
                         <li>输入上方地址并加入</li>
                     </ol>

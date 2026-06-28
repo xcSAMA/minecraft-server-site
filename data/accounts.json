@@ -1,0 +1,32 @@
+[
+    {
+        "bid": "xcSAMA",
+        "password": "123456",
+        "displayName": "xcSAMA",
+        "role": "admin"
+    },
+    {
+        "bid": "admin",
+        "password": "admin123",
+        "displayName": "管理员",
+        "role": "admin"
+    },
+    {
+        "bid": "player1",
+        "password": "player123",
+        "displayName": "玩家一号",
+        "role": "user"
+    },
+    {
+        "bid": "player2",
+        "password": "player456",
+        "displayName": "玩家二号",
+        "role": "user"
+    },
+    {
+        "bid": "test",
+        "password": "test123",
+        "displayName": "测试账号",
+        "role": "user"
+    }
+]
