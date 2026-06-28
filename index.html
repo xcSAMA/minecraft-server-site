@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ 我的世界服务器</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 粒子背景 -->
+    <div id="particles"></div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">⛏️ MC Server</div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">首页</a>
+                <a href="#status" class="nav-link">服务器状态</a>
+                <a href="#config" class="nav-link">配置信息</a>
+                <a href="#about" class="nav-link">关于</a>
+            </div>
+            <div class="nav-status" id="navStatus">
+                <span class="status-dot offline"></span>
+                <span>检测中...</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首页 Hero -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">✨ 全新版本</div>
+            <h1 class="hero-title" id="serverName">⛏️ Leaves 服务器</h1>
+            <p class="hero-subtitle" id="serverMotd">正在连接服务器...</p>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="playerCount">0</span>
+                        <span class="stat-label">在线玩家</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📡</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="serverVersion">-</span>
+                        <span class="stat-label">服务器版本</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💚</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="serverTps">20.0</span>
+                        <span class="stat-label">TPS</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-actions">
+                <button class="btn btn-primary" onclick="showModal('connect')">
+                    🔗 加入服务器
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToSection('status')">
+                    📊 查看状态
+                </button>
+            </div>
+        </div>
+        <div class="hero-decoration">
+            <div class="floating-block block-1"></div>
+            <div class="floating-block block-2"></div>
+            <div class="floating-block block-3"></div>
+        </div>
+    </section>
+
+    <!-- 服务器状态 -->
+    <section id="status" class="section">
+        <div class="section-header">
+            <h2 class="section-title">📊 服务器实时状态</h2>
+            <p class="section-desc">实时监控服务器运行状况</p>
+        </div>
+        <div class="status-grid">
+            <div class="status-card" id="statusOnline">
+                <div class="status-card-icon">🟢</div>
+                <h3>运行状态</h3>
+                <p class="status-card-value" id="onlineStatus">检测中...</p>
+                <div class="status-card-bar">
+                    <div class="bar-fill" id="uptimeBar"></div>
+                </div>
+                <span class="status-card-label">运行时间</span>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">🧠</div>
+                <h3>内存使用</h3>
+                <p class="status-card-value"><span id="memUsed">0</span> / <span id="memMax">0</span> MB</p>
+                <div class="status-card-bar">
+                    <div class="bar-fill" id="memBar"></div>
+                </div>
+                <span class="status-card-label" id="memPercent">0%</span>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">⚡</div>
+                <h3>TPS ( tick/s )</h3>
+                <p class="status-card-value" id="tpsValue">20.0</p>
+                <div class="status-card-bar">
+                    <div class="bar-fill" id="tpsBar"></div>
+                </div>
+                <span class="status-card-label" id="tpsLabel">优秀</span>
+            </div>
+            <div class="status-card">
+                <div class="status-card-icon">🌍</div>
+                <h3>在线玩家</h3>
+                <p class="status-card-value"><span id="onlinePlayers">0</span> / <span id="maxPlayers">20</span></p>
+                <div class="status-card-bar">
+                    <div class="bar-fill" id="playerBar"></div>
+                </div>
+                <span class="status-card-label" id="playerLabel">当前在线</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 配置信息 -->
+    <section id="config" class="section">
+        <div class="section-header">
+            <h2 class="section-title">⚙️ 服务器配置</h2>
+            <p class="section-desc">从本地 YML 配置文件中读取的服务器信息</p>
+        </div>
+        <div class="config-tabs">
+            <button class="config-tab active" data-file="server.properties">server.properties</button>
+            <button class="config-tab" data-file="bukkit.yml">bukkit.yml</button>
+            <button class="config-tab" data-file="spigot.yml">spigot.yml</button>
+            <button class="config-tab" data-file="paper.yml">paper.yml</button>
+            <button class="config-tab" data-file="leaves.yml">leaves.yml</button>
+        </div>
+        <div class="config-content">
+            <div class="config-header">
+                <span class="config-filename" id="configFilename">server.properties</span>
+                <span class="config-badge" id="configUpdateBadge">实时</span>
+            </div>
+            <pre class="config-preview" id="configContent"><code>正在加载配置...</code></pre>
+        </div>
+    </section>
+
+    <!-- 关于 -->
+    <section id="about" class="section">
+        <div class="section-header">
+            <h2 class="section-title">ℹ️ 关于本服务器</h2>
+            <p class="section-desc">了解我们的 Minecraft 世界</p>
+        </div>
+        <div class="about-content">
+            <div class="about-card">
+                <h3>🎮 游戏版本</h3>
+                <p id="aboutVersion">加载中...</p>
+            </div>
+            <div class="about-card">
+                <h3>🌐 服务器地址</h3>
+                <p id="aboutAddress">加载中...</p>
+            </div>
+            <div class="about-card">
+                <h3>📦 核心类型</h3>
+                <p>Leaves — 基于 Paper 的高性能 Minecraft 服务端</p>
+            </div>
+            <div class="about-card">
+                <h3>🔧 插件数量</h3>
+                <p id="pluginCount">加载中...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>⛏️ Minecraft Server Status · 数据实时更新自本地服务器</p>
+        <p class="footer-sub">Made with 💚</p>
+    </footer>
+
+    <!-- 加入服务器弹窗 -->
+    <div class="modal-overlay" id="connectModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('connect')">✕</button>
+            <div class="modal-icon">🔗</div>
+            <h2 class="modal-title">加入我们的服务器</h2>
+            <div class="modal-body">
+                <div class="connect-info">
+                    <div class="connect-field">
+                        <label>服务器地址</label>
+                        <div class="connect-value" id="modalServerIp">
+                            <code>play.example.com</code>
+                            <button class="copy-btn" onclick="copyAddress()">📋 复制</button>
+                        </div>
+                    </div>
+                    <div class="connect-field">
+                        <label>游戏版本</label>
+                        <div class="connect-value" id="modalGameVersion">1.21</div>
+                    </div>
+                </div>
+                <div class="connect-steps">
+                    <h3>📖 加入步骤</h3>
+                    <ol>
+                        <li>打开 Minecraft Launcher</li>
+                        <li>选择对应版本的游戏</li>
+                        <li>点击「多人游戏」</li>
+                        <li>点击「添加服务器」</li>
+                        <li>输入上方地址并加入</li>
+                    </ol>
+                </div>
+            </div>
+            <button class="btn btn-primary modal-btn" onclick="closeModal('connect')">
+                我知道了 🎮
+            </button>
+        </div>
+    </div>
+
+    <!-- 加载动画 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner-block"></div>
+            <div class="spinner-block"></div>
+            <div class="spinner-block"></div>
+        </div>
+        <p>正在连接服务器...</p>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
